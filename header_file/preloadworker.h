@@ -19,14 +19,17 @@ extern ImagePreloadParams g_preload_params;
 extern std::mutex g_preload_mutex;
 extern std::condition_variable g_preload_cv;
 extern bool g_is_exit;
+
+// utile à la gestion du préchargement d'images. 
 class PreLoadWorker
 {
 public:
     PreLoadWorker();
 
+    // Méthode pour charger et mettre en cache une image, prenant en paramètre le numéro de page et le type de page.
     void loadAndCacheImage(const int page_num, const int page_type);
 
-
+    // Méthode pour le chargement parallèle des pages.
     void parallelLoadPage();
 
 
