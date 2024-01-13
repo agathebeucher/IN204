@@ -1,9 +1,6 @@
 #include "header_file/ArchiveReader.h"
-
 ArchiveReader::ArchiveReader(){}
-
 ArchiveReader::~ArchiveReader(){}
-
 bool ArchiveReader::loadArchivedFiles(std::string file_path)
 {
 	offset_cache.clear();
