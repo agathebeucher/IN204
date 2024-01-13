@@ -1,9 +1,8 @@
-#include "../include/imgprovider.h"
+#include "header_file/imgprovider.h"
 
 ImgProvider::ImgProvider()
     : QQuickImageProvider(QQuickImageProvider::Image, QQmlImageProviderBase::ForceAsynchronousImageLoading )
 {
-
     is_path_set = false; //initially no image to show
     g_is_path_changed = false;
     g_page_num_total = 1;
@@ -16,8 +15,6 @@ ImgProvider::ImgProvider()
 
     cache.setMaxCost(50); // set cache's capacity, can save 100 images;
     //emit setPreloadPageNumTotal(page_num_total);
-
-
 }
 
 ImgProvider::~ImgProvider(){
