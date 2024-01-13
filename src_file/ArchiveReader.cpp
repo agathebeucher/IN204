@@ -1,15 +1,8 @@
-#include "~/IN204/header_file/ArchiveReader.h"
+#include "header_file/ArchiveReader.h"
 
+ArchiveReader::ArchiveReader(){}
 
-
-ArchiveReader::ArchiveReader()
-{
-}
-
-
-ArchiveReader::~ArchiveReader()
-{
-}
+ArchiveReader::~ArchiveReader(){}
 
 bool ArchiveReader::loadArchivedFiles(std::string file_path)
 {
