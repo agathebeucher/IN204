@@ -1,4 +1,4 @@
-QT += quick
+QT += core
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -27,7 +27,7 @@ win32 {
 
     ##########
     #Files for zlib
-    INCLUDEPATH += $$PWD\..\3dparts\include\zlib
+    INCLUDEPATH += $$PWD\..\3dparts\header_file\zlib
     LIBS += -L"$$PWD\\..\\3dparts\\lib\\zlib" \
         -lzlib
 
@@ -53,17 +53,17 @@ unix {
 }
 ##########
 #Files for ComicBookReader
-INCLUDEPATH += ..\include\
-INCLUDEPATH += ..\src\
+INCLUDEPATH += ..\header_file\
+INCLUDEPATH += ..\src_file\
 ##########
 
 
 SOURCES += \
-    ../src/imgprovider.cpp \
-    ../src/preloadworker.cpp\
-    ../src/ArchiveReader.cpp \
-    ../src/main.cpp \
-    ../src/image_process.cpp
+    ../src_file/imgprovider.cpp \
+    ../src_file/preloadworker.cpp\
+    ../src_file/ArchiveReader.cpp \
+    ../src_file/main.cpp \
+    ../srcf_file/image_process.cpp
 
 
 RESOURCES += ../src/qml.qrc
@@ -80,18 +80,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ../include/imgprovider.h \
-    ../include/preloadworker.h \
-    ../include/cache.h \
-    ../include/comic_book_reader_contract.h \
-    ../include/image_process.h \
-    ../include/ArchiveReader.h \
+    ../header_file/imgprovider.h \
+    ../header_file/preloadworker.h \
+    ../header_file/cache.h \
+    ../header_file/comic_book_reader_contract.h \
+    ../header_file/image_process.h \
+    ../header_file/ArchiveReader.h \
 
 
 DISTFILES += \
-    ../src/CustomButton.qml \
-    ../src/CustomSeparator.qml \
-    ../src/CustomSeparatorHorizontal.qml \
-    ../src/CustomSlider.qml \
-    ../src/CustomSliderVertical.qml \
-    ../src/main.qml
+    ../src_file/CustomButton.qml \
+    ../src_file/CustomSeparator.qml \
+    ../src_file/CustomSeparatorHorizontal.qml \
+    ../src_file/CustomSlider.qml \
+    ../src_file/CustomSliderVertical.qml \
+    ../src_file/main.qml
