@@ -9,7 +9,7 @@
 #include "image_process.h"
 #endif
 #ifdef __linux__
-#include "../include/image_process.h"
+#include "image_process.h"
 #endif
 #include <opencv2/opencv.hpp>
 #include <functional>
