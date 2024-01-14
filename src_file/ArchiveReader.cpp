@@ -4,7 +4,7 @@ BIBLIOTHEQUES :
 - openCV (cv::imdecode, cv::IMREAD_COLOR)
 */
 
-#include "header_file/ArchiveReader.h"
+#include "../header_file/ArchiveReader.h"
 
 //Constructeur de la classe Archive reader
 ArchiveReader::ArchiveReader(){}
