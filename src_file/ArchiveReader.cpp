@@ -1,3 +1,9 @@
+/*
+BIBLIOTHEQUES : 
+- unarr(ar_open_file, r_parse_entry, ar_entry_get_offset, ar_entry_get_size)
+- openCV (cv::imdecode, cv::IMREAD_COLOR)
+*/
+
 #include "header_file/ArchiveReader.h"
 
 //Constructeur de la classe Archive reader
@@ -43,39 +49,49 @@ bool ArchiveReader::loadArchivedFiles(std::string file_path)
 	return true;
 }
 
-bool ArchiveReader::loadOneImage(int num, cv::Mat & a_image)
+
+//Charger une seul image à partir d'un fichier d'archive
+//num : index de l'image à charger
+//cv::Mat charge l'image stockée
+//renvoie l'état de chargement de l'archive
+bool ArchiveReader::loadOneImage(int num, cv::Mat &a_image)
 {
-	if (num > page_num_total || num < 1) return false;
-	if (isSingleImg == true) {
-		a_image = cv::imread(archive_path, cv::IMREAD_COLOR);
+	if (num > page_num_total || num < 1) return false;//plage de l'index d'image invalide
+
+	//L'archive ne contient qu'une image donc chargement de toute l'archive
+	if (isSingleImg == true)
+	{
+		a_image = cv::imread(archive_path, cv::IMREAD_COLOR);//Chargement de l'image unique avec fonction d'openCV
 		return true;
 	}
 
-
+	//archive plus d'une image
 	if(!ar_parse_entry_at(ar, offset_cache[num-1])) return false;
-	size_t size = ar_entry_get_size(ar);
+	size_t size = ar_entry_get_size(ar);//taille de l'archive
 	if (size <= 0) {
 		const char* zero_file = ar_entry_get_name(ar);
 		std::cout << zero_file << std::endl;
 		return false;
 	}
 	//check buffer size 
-	read_buffer.resize(size);
-	unsigned char *buffer = &read_buffer[0];
-	if(!ar_entry_uncompress(ar, buffer, size)) return false;
+	read_buffer.resize(size);//alloue un tampon de lecture de la taille de l'image (size), espace mémoire stockant donnée image compressée
+	unsigned char *buffer = &read_buffer[0];//pointeur vers le début du buffer
+	if(!ar_entry_uncompress(ar, buffer, size)) return false;//décompresse données de l'entrée de l'archuve ar 
 
-	a_image = cv::imdecode(read_buffer, cv::IMREAD_COLOR);
-	
-	
+	a_image = cv::imdecode(read_buffer, cv::IMREAD_COLOR);//décoder l'image à partir du tampon de lecture, création de l'image
+
 	return true;
 }
 
+
+
 int ArchiveReader::getPageNumTotal()
 {
-	return page_num_total;
+	return page_num_total; //provient de la fonction ArchiveReader::loadArchivedFiles
 }
 
-ar_archive * ArchiveReader::ar_open_any_archive(ar_stream * stream, const char * fileext)
+//ouvre les archives rar,zip,7z,tar ==> renvoie le pointeur vers l'archive ouverte
+ar_archive* ArchiveReader::ar_open_any_archive(ar_stream * stream, const char * fileext)
 {
 	ar_archive *ar = ar_open_rar_archive(stream);
 	if (!ar)
