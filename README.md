@@ -6,8 +6,8 @@ Ce projet d'IN204 consiste à réaliser un logiciel qui soit capable de fournir 
 Cet outil offre une **interface agréable et performante** permettant de parcourir les différentes pages d’un livre au format *.CBR* ou au format *.CBZ*.
 
 ## Outils
-* Qt version 6.1 (Gestion de l'interface)
-* Libarchive (Gestion des archives)
+* Qt version 5 (Gestion de l'interface : commande *"$ sudo apt-get install qtbase5-dev"*)
+* Libarchive (Gestion des archives : commande *"$ sudo apt-get install libarchive-dev"*)
 
 ## Compilation sous Linux
 Pour compiler le proejt sous Linux, il suffit de se rendre dans le dossier *"IN204/ComicBookReader"* et de taper ces trois instructions dans un shell bash : 
