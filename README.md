@@ -10,7 +10,7 @@ Cet outil offre une **interface agréable et performante** permettant de parcour
 * Libarchive (Gestion des archives : commande *"$ sudo apt-get install libarchive-dev"*)
 
 ## Compilation sous Linux
-Pour compiler le proejt sous Linux, il suffit de se rendre dans le dossier *"IN204/ComicBookReader"* et de taper ces trois instructions dans un shell bash : 
+Pour compiler le projet sous Linux, placez-vous dans le dossier *"IN204/ComicBookReader"* et tapez ces trois instructions dans un shell bash : 
 ```
 qmake
 make
@@ -18,7 +18,7 @@ make
 ```
 
 ## Fonctionnalités
-* Ouverture d'un Comic Book (formats acceptés : *.cbr, *.cbz, *.rar, *.zip, *.7zip, *.7z) contenant des images (formats acceptés : *.bmp, *.gif, *.jpeg, *.jpg, *.png)
+* Ouverture d'un fichier Comic Book (formats acceptés : *.cbr, *.cbz, *.rar, *.zip, *.7zip, *.7z) contenant des images (formats acceptés : *.bmp, *.gif, *.jpeg, *.jpg, *.png)
 * Possibilité de choisir et d'extraire des pages d'un ouvrage au format .cbz
 * Navigation possible entre les différentes pages (première, dernière, suivante, précédente ou au choix) avec les boutons ou à l'aide de raccourci (Flèches directionnelles droite/gauche, bouton Début/Fin)
 * Possibilité de redimensionner l'image (zoom, adapté à la page, adapté à la largeur) avec les boutons ou à l'aide de raccourci (Ctrl + Molette, Ctrl + +, Ctrl + -, Ctrl + 0)
