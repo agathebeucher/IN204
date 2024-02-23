@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = ComicBookReader1.0.0
-DISTDIR = /home/beucher/CBR_IN204/ComicBookReader/.tmp/ComicBookReader1.0.0
+DISTDIR = /home/beucher/IN204/ComicBookReader/.tmp/ComicBookReader1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -larchive /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
@@ -52,12 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp \
-		mainwindow.cpp \
-		book.cpp \
-		image.cpp \
-		archiveManager.cpp \
-		combinewindow.cpp moc_mainwindow.cpp \
+SOURCES       = src/main.cpp \
+		src/mainwindow.cpp \
+		src/book.cpp \
+		src/image.cpp \
+		src/archiveManager.cpp \
+		src/combinewindow.cpp moc_mainwindow.cpp \
 		moc_book.cpp \
 		moc_combinewindow.cpp
 OBJECTS       = main.o \
@@ -146,16 +146,16 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		ComicBookReader.pro mainwindow.h \
-		book.h \
-		image.h \
-		archiveManager.h \
-		combinewindow.h main.cpp \
-		mainwindow.cpp \
-		book.cpp \
-		image.cpp \
-		archiveManager.cpp \
-		combinewindow.cpp
+		ComicBookReader.pro header/mainwindow.h \
+		header/book.h \
+		header/image.h \
+		header/archiveManager.h \
+		header/combinewindow.h src/main.cpp \
+		src/mainwindow.cpp \
+		src/book.cpp \
+		src/image.cpp \
+		src/archiveManager.cpp \
+		src/combinewindow.cpp
 QMAKE_TARGET  = ComicBookReader
 DESTDIR       = 
 TARGET        = ComicBookReader
@@ -339,8 +339,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h book.h image.h archiveManager.h combinewindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp book.cpp image.cpp archiveManager.cpp combinewindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents header/mainwindow.h header/book.h header/image.h header/archiveManager.h header/combinewindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/book.cpp src/image.cpp src/archiveManager.cpp src/combinewindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui combinewindow.ui $(DISTDIR)/
 
 
@@ -376,22 +376,22 @@ moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_book.cpp moc_combinewindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_book.cpp moc_combinewindow.cpp
-moc_mainwindow.cpp: mainwindow.h \
-		book.h \
-		combinewindow.h \
+moc_mainwindow.cpp: header/mainwindow.h \
+		header/book.h \
+		header/combinewindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/CBR_IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/CBR_IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include header/mainwindow.h -o moc_mainwindow.cpp
 
-moc_book.cpp: book.h \
+moc_book.cpp: header/book.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/CBR_IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/CBR_IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include book.h -o moc_book.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include header/book.h -o moc_book.cpp
 
-moc_combinewindow.cpp: combinewindow.h \
+moc_combinewindow.cpp: header/combinewindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/CBR_IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/CBR_IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include combinewindow.h -o moc_combinewindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include header/combinewindow.h -o moc_combinewindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -418,32 +418,32 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h \
-		book.h \
-		combinewindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+main.o: src/main.cpp header/mainwindow.h \
+		header/book.h \
+		header/combinewindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
-mainwindow.o: mainwindow.cpp mainwindow.h \
-		book.h \
-		combinewindow.h \
+mainwindow.o: src/mainwindow.cpp header/mainwindow.h \
+		header/book.h \
+		header/combinewindow.h \
 		ui_mainwindow.h \
-		archiveManager.h \
-		image.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
+		header/archiveManager.h \
+		header/image.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/mainwindow.cpp
 
-book.o: book.cpp book.h \
-		image.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o book.o book.cpp
+book.o: src/book.cpp header/book.h \
+		header/image.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o book.o src/book.cpp
 
-image.o: image.cpp image.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image.o image.cpp
+image.o: src/image.cpp header/image.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image.o src/image.cpp
 
-archiveManager.o: archiveManager.cpp archiveManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o archiveManager.o archiveManager.cpp
+archiveManager.o: src/archiveManager.cpp header/archiveManager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o archiveManager.o src/archiveManager.cpp
 
-combinewindow.o: combinewindow.cpp combinewindow.h \
+combinewindow.o: src/combinewindow.cpp header/combinewindow.h \
 		ui_combinewindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o combinewindow.o combinewindow.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o combinewindow.o src/combinewindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

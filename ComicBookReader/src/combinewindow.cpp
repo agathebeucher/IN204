@@ -1,5 +1,5 @@
-#include "combinewindow.h"
-#include "ui_combinewindow.h"
+#include "../header/combinewindow.h"
+#include "../ui_combinewindow.h"
 #include <QFileDialog>
 #include <stdlib.h>
 #include <QMessageBox>

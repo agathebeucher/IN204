@@ -13,18 +13,18 @@ TEMPLATE = app
 
 LIBS += -larchive
 
-SOURCES += main.cpp\
-    mainwindow.cpp \
-    book.cpp \
-    image.cpp \
-    archiveManager.cpp \
-    combinewindow.cpp
+SOURCES += src/main.cpp\
+    src/mainwindow.cpp \
+    src/book.cpp \
+    src/image.cpp \
+    src/archiveManager.cpp \
+    src/combinewindow.cpp
 
-HEADERS  += mainwindow.h \
-    book.h \
-    image.h \
-    archiveManager.h \
-    combinewindow.h
+HEADERS  += header/mainwindow.h \
+    header/book.h \
+    header/image.h \
+    header/archiveManager.h \
+    header/combinewindow.h
 
 FORMS    += mainwindow.ui \
     combinewindow.ui

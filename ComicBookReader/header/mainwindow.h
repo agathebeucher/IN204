@@ -5,8 +5,8 @@
 #include <QScrollArea>
 #include <QPixmap>
 #include <QList>
-#include <book.h>
-#include <combinewindow.h>
+#include "../header/book.h"
+#include "../header/combinewindow.h"
 #include <QKeyEvent>
 
 namespace Ui {

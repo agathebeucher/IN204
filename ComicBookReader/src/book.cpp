@@ -1,5 +1,5 @@
-#include "book.h"
-#include "image.h"
+#include "../header/book.h"
+#include "../header/image.h"
 #include <QString>
 #include <QDir>
 #include <QPixmap>

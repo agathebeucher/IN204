@@ -1,8 +1,8 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "book.h"
-#include "archiveManager.h"
-#include "image.h"
+#include "../header/mainwindow.h"
+#include "../ui_mainwindow.h"
+#include "../header/book.h"
+#include "../header/archiveManager.h"
+#include "../header/image.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QFile>

@@ -1,4 +1,4 @@
-#include "image.h"
+#include "../header/image.h"
 #include <QString>
 #include <QPainter>
 
