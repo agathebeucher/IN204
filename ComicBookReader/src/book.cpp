@@ -1,3 +1,7 @@
+/*
+DEFINITION DE LA CLASSE "BOOK" et de ses méthodes
+*/
+
 #include "../header/book.h"
 #include "../header/image.h"
 #include <QString>
