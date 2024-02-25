@@ -12,6 +12,7 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QWheelEvent>
+#include <QDebug> 
 
 
 QString MainWindow::filter = QString("Supported Files (*.cbr *.cbz *.rar *zip *.7z *.7zip)");
@@ -155,9 +156,16 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     currentBook = new Book();
+    
+    // Charger l'image
+    QPixmap image(path); // Charger l'image à partir du chemin spécifié
+    
+    // Afficher l'image dans le QLabel
+    ui->screen->setPixmap(image);
+
     ui->comboBox->setCurrentIndex(0);
-    connect(currentBook, &Book::pageChanged, this, &MainWindow::refreshScreen);
-    connect(currentBook, &Book::infoMsgBox, this, &MainWindow::msgBox);
+    connect(currentBook, SIGNAL(pageChanged(bool)), this, SLOT(refreshScreen(bool) ));
+    connect(currentBook, SIGNAL(infoMsgBox(QString)), this, SLOT(msgBox(QString)));
     currentBook->setPathToDir(path);
 }
 
@@ -200,10 +208,15 @@ void MainWindow::setImage(QPixmap image) {
 
 
 void MainWindow::refreshScreen(bool numPageChanged) {
-    if (!currentBook || !ui || !ui->screen || !ui->screen->pixmap()) return; // Vérifier si les pointeurs sont nuls
+    if (!currentBook || !ui || !ui->screen || !ui->screen->pixmap()) {
+        return; // Vérifier si les pointeurs sont nuls
+    }
 
     QPixmap image = currentBook->getCurrImage();
-    if (image.isNull()) return; // Vérifier si l'image n'est pas nulle
+    if (image.isNull()) {
+        qDebug() << "Image is null"; // Ajout d'un log pour vérifier si l'image est nulle
+        return; // Vérifier si l'image n'est pas nulle
+    }
     
     QSize valRatio;
     if (ui->screen->pixmap()->isNull()) {
@@ -212,7 +225,7 @@ void MainWindow::refreshScreen(bool numPageChanged) {
         valRatio = QSize(image.scaledToHeight(ui->screen->pixmap()->height()).size());
     }
     QPixmap scaledImage = Image::resize(image, currentBook->getRatio(), valRatio);
-    setImage(scaledImage);
+    ui->screen->setPixmap(scaledImage);
     ui->scrollArea->verticalScrollBar()->setSliderPosition(ui->scrollArea->verticalScrollBar()->minimum());
     ui->scrollArea->horizontalScrollBar()->setSliderPosition(ui->scrollArea->horizontalScrollBar()->minimum());
     if (numPageChanged) {
