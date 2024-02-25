@@ -11,21 +11,21 @@ class Book : public QObject
 {
     Q_OBJECT
 private:
-    // Path to the dir with all the images
+    // Chemin vers tous les objets
     QString pathToDir;
-    // Vector of each image's path
+    // tablau de chaque chemin d'image
     QVector<QString> tabPathToImage;
-    // Currently performed zoom on the book : can be "Custom", "Fit page" (eq. to fit height) or "Fit width"
+    // Le zoom actuel appliqué à l'image ("Custom", "Fit page" or "Fit width")
     QString ratio;
-    // Current page of the book
+    // Page actuelle
     int currPage;
-    // Number of pages
+    // Nombre de pages
     int totalPage;
-    // One or two pages shown on the screen
+    // Une seule image affiché
     bool singleMode;
-    // Only used in double page mode -> CoverPage mode (show only the first page if true otherwise show 2 pages)
+    // Seulement utilisé dans le mode double page (single page mode si true)
     bool coverPageMode;
-    // Current image on screen with no transformation (no zoom, ...)
+    // Image actuelle sur l'écran sans zoom
     QPixmap currImage;
 
 public:
