@@ -3,6 +3,7 @@
 #include "../header/book.h"
 #include "../header/archiveManager.h"
 #include "../header/image.h"
+#include "../header/bookmark.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QFile>
@@ -19,7 +20,7 @@ QString MainWindow::filter = QString("Supported Files (*.cbr *.cbz *.rar *zip *.
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow), currentBook(0)
+    ui(new Ui::MainWindow), currentBook(0), currentBookmark(0)
 {
 // Initialisation
     ui->setupUi(this);
@@ -37,16 +38,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QShortcut *zoomInShortcut = new QShortcut(QKeySequence("CTRL++"), this);
     QShortcut *zoomOutShortcut = new QShortcut(QKeySequence("CTRL+-"), this);
     QShortcut *resetZoom = new QShortcut(QKeySequence("CTRL+0"), this);
+    QShortcut *bookmarkShortcut = new QShortcut(QKeySequence("CTRL+B"), this);
     connect(zoomInShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomIn_clicked);
     connect(zoomOutShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomOut_clicked);
     connect(resetZoom, &QShortcut::activated, this, &MainWindow::setDefaultZoom);
-
+    connect(bookmarkShortcut, &QShortcut::activated, this, &MainWindow::on_Bookmark_clicked);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete currentBook;
+    delete currentBookmark;
     QDir dir("../data/");
     dir.removeRecursively();
 }
@@ -156,7 +159,7 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     currentBook = new Book();
-    
+    currentBookmark= new Bookmark();
     // Charger l'image
     QPixmap image(path); // Charger l'image à partir du chemin spécifié
     
@@ -201,6 +204,13 @@ void MainWindow::on_actionNo_cover_page_triggered()
     refreshScreen(false);
 }
 
+void MainWindow::on_Bookmark_clicked(){
+    int currentPageNumber = currentBook->getCurrPage();
+
+    // Mettre à jour le numéro de page dans la classe Bookmark
+    currentBookmark->set_page_marked(currentPageNumber);
+    ui->page_Bookmark->setText(QString("Bookmark Page: %1").arg(currentPageNumber));
+}
 
 void MainWindow::setImage(QPixmap image) {
     ui->screen->setPixmap(image);

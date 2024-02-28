@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QList>
 #include "../header/book.h"
+#include "../header/bookmark.h"
 #include "../header/combinewindow.h"
 #include <QKeyEvent>
 
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     Book* currentBook;
+    Bookmark* currentBookmark;
     // Dialog window used when combining images
     CombineWindow* combineDialogWindow;
     // Supported files filter
@@ -40,7 +42,7 @@ private slots:
     void on_comboBox_activated(const QString &r);
     // Set the current page
     void on_currPageDisplay_editingFinished();
-
+    void on_Bookmark_clicked();
 // Action on Menu
     void on_actionClose_triggered();
     void on_actionAbout_triggered();
