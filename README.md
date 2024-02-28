@@ -11,7 +11,6 @@ Cet outil offre une **interface agréable et performante** permettant de parcour
 ```
 $ sudo apt-get install qtbase5-dev
 $ sudo apt-get install libarchive-dev
-
 ```
 
 ## Build sous Linux
