@@ -76,6 +76,7 @@ private slots:
     void wheelEvent(QWheelEvent *event) override;
     // Key shortcuts
     void keyReleaseEvent(QKeyEvent *event);
+    bool fileExists(const QString& fileName);
 
 
 signals:

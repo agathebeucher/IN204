@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Set an event filter to the mouse wheel so that if ctrl key is pressed and we use the mouse wheel a zoom is performed instead of scrolling
     ui->scrollArea->verticalScrollBar()->installEventFilter(this);
     setWindowTitle(tr("Comic Book Reader"));
+    ui->page_Bookmark->setText(QString(""));
 
 // Shortcut part
     QShortcut *zoomInShortcut = new QShortcut(QKeySequence("CTRL++"), this);
@@ -149,6 +150,8 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open", "../", filter);
+    QString bookmarkFileName = currentBook->getFileName() + ".bookmark"; 
+
     if (filename.isEmpty()) return;
     QString path = "../data/" + QFileInfo(filename).baseName();
     Unzip(filename, path);
@@ -165,11 +168,34 @@ void MainWindow::on_actionOpen_triggered()
     
     // Afficher l'image dans le QLabel
     ui->screen->setPixmap(image);
+    ui->page_Bookmark->setText(QString("0"));
 
     ui->comboBox->setCurrentIndex(0);
     connect(currentBook, SIGNAL(pageChanged(bool)), this, SLOT(refreshScreen(bool) ));
     connect(currentBook, SIGNAL(infoMsgBox(QString)), this, SLOT(msgBox(QString)));
     currentBook->setPathToDir(path);
+    
+    // Vérifier si un fichier de marque-page existe et le charger s'il existe
+    if (fileExists(bookmarkFileName)) {
+        std::ifstream bookmarkFile(bookmarkFileName.toStdString());
+        if (bookmarkFile.is_open()) {
+            int bookmarkedPage;
+            if (bookmarkFile >> bookmarkedPage) {
+                // Utilisez bookmarkedPage pour initialiser votre interface graphique
+                ui->page_Bookmark->setText(QString("%1").arg(bookmarkedPage));
+                // Assurez-vous que currentBookmark est mis à jour si nécessaire
+                currentBookmark->set_page_marked(bookmarkedPage);
+            }
+            bookmarkFile.close();
+        } else {
+            std::cerr << "Impossible d'ouvrir le fichier de marque-page." << std::endl;
+        }
+    }
+    else {
+        currentBookmark->initialize_bookmarkfile(bookmarkFileName,0)
+        ui->page_Bookmark->setText(QString("0"));
+        currentBookmark->set_page_marked(0);
+    }
 }
 
 void MainWindow::on_actionCombine_triggered()
@@ -204,12 +230,13 @@ void MainWindow::on_actionNo_cover_page_triggered()
     refreshScreen(false);
 }
 
-void MainWindow::on_Bookmark_clicked(){
+void MainWindow::on_Bookmark_clicked() {
     int currentPageNumber = currentBook->getCurrPage();
+    QString bookmarkFileName = currentBook->getFileName() + ".bookmark"; // Nom du fichier de marque-page basé sur le nom de l'archive
 
-    // Mettre à jour le numéro de page dans la classe Bookmark
-    currentBookmark->set_page_marked(currentPageNumber);
-    ui->page_Bookmark->setText(QString("Bookmark Page: %1").arg(currentPageNumber));
+    // Ouverture du fichier bookmark en mode écriture pour mettre à jour le nouveau marque-page
+    currentBookmark->change_bookmark_file(bookmarkFileName,currentPageNumber);
+    ui->page_Bookmark->setText(QString("0"));
 }
 
 void MainWindow::setImage(QPixmap image) {
@@ -319,5 +346,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event) {
         on_firstPage_clicked();
         break;
     }
+}
+
+bool fileExists(const QString& fileName) {
+    QFileInfo fileInfo(fileName);
+    return fileInfo.exists() && fileInfo.isFile();
 }
 
