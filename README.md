@@ -22,12 +22,12 @@ $ ./ComicBookReader
 ```
 
 ## ⚙️ Fonctionnalités
-* 📂Ouverture d'un fichier Comic Book (formats acceptés : *.cbr, *.cbz, *.rar, *.zip, *.7zip, *.7z) contenant des images (formats acceptés : *.bmp, *.gif, *.jpeg, *.jpg, *.png)
+* 📂 Ouverture d'un fichier Comic Book (formats acceptés : *.cbr, *.cbz, *.rar, *.zip, *.7zip, *.7z) contenant des images (formats acceptés : *.bmp, *.gif, *.jpeg, *.jpg, *.png)
 * 🔓 Possibilité de choisir et d'extraire des pages d'un ouvrage au format .cbz
 * ↔️ Navigation possible entre les différentes pages (première, dernière, suivante, précédente ou au choix) avec les boutons ou à l'aide de raccourci (Flèches directionnelles droite/gauche, bouton Début/Fin)
 * 🎚️ Possibilité de redimensionner l'image (zoom, adapté à la page, adapté à la largeur) avec les boutons ou à l'aide de raccourci (Ctrl + Molette, Ctrl + +, Ctrl + -, Ctrl + 0)
-*🔖 Affichage en mode double page avec choix si page de couverture ou non (première page unique ou double page)
-* Marque-page
+* 📖 Affichage en mode double page avec choix si page de couverture ou non (première page unique ou double page)
+* 🔖 Marque-page
 
 ## Diagramme UML (diagramme de classe)
 
