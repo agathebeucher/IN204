@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2023-02-27T03:55:55
+# Project created by QtCreator 2023-12-27T10:23:40
 #
 #-------------------------------------------------
 
@@ -11,20 +11,20 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ComicBookReader
 TEMPLATE = app
 
-LIBS += -larchive
+LIBS += -larchive -unrar
 
 SOURCES += src/main.cpp\
     src/mainwindow.cpp \
-    src/book.cpp \
+    src/comicbook.cpp \
     src/image.cpp \
-    src/archiveManager.cpp \
+    src/archive.cpp \
     src/combinewindow.cpp\
     src/bookmark.cpp
 
 HEADERS  += header/mainwindow.h \
-    header/book.h \
+    header/comicbook.h \
     header/image.h \
-    header/archiveManager.h \
+    header/archive.h \
     header/combinewindow.h \
     header/bookmark.h
 

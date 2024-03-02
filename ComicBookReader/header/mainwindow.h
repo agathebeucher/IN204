@@ -5,7 +5,7 @@
 #include <QScrollArea>
 #include <QPixmap>
 #include <QList>
-#include "../header/book.h"
+#include "../header/comicbook.h"
 #include "../header/bookmark.h"
 #include "../header/combinewindow.h"
 #include <QKeyEvent>

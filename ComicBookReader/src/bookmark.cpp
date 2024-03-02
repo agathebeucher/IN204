@@ -25,7 +25,7 @@ void Bookmark::set_bookmarkFilename(QString new_filename){
 }
 
 void Bookmark::set_pagemarked(int val){
-    page_marked=val+1;
+    page_marked=val;
 }
 
 QString Bookmark::get_bookmarkFilename(){

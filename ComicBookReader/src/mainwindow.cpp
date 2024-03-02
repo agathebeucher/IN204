@@ -1,7 +1,7 @@
 #include "../header/mainwindow.h"
 #include "../ui_mainwindow.h"
-#include "../header/book.h"
-#include "../header/archiveManager.h"
+#include "../header/comicbook.h"
+#include "../header/archive.h"
 #include "../header/image.h"
 #include "../header/bookmark.h"
 #include <QMessageBox>
@@ -163,7 +163,7 @@ void MainWindow::on_actionOpen_triggered()
     if (filename.isEmpty()) return;
 
     QString path = "../data/" + QFileInfo(filename).baseName();
-    Unzip(filename, path);
+    DecompresserZIP(filename, path);
     QDir dir(path);
     dir.setNameFilters(Image::imageFilters);
     if (dir.isEmpty()) {
@@ -317,7 +317,7 @@ void MainWindow::setDefaultZoom() {
 
 void MainWindow::combineSlot(QList<int> l, QString s) {
     QFileInfoList* fileList = currentBook->getFileInfoList((QList<int>) l);
-    Zip(*fileList, s);
+    CompresserZIP(*fileList, s);
     delete fileList;
 }
 
