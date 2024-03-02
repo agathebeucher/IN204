@@ -11,7 +11,7 @@ DEFINITION DE LA CLASSE "BOOK" et de ses méthodes
 
 // Constructeur de la classe : Initialisation de ses méthodes, hérite de QObject
 Book::Book() : 
-    QObject(), pathToDir(""), currPage(0), totalPage(0), ratio(QString("Fit page")), singleMode(true), coverPageMode(true) {}
+    QObject(), pathToDir(""), currPage(0), totalPage(0), ratio(QString("Fit page")), singleMode(true), doubleMode(false) {}
 
 // Destructeur de la classe
 Book::~Book() {
@@ -44,18 +44,10 @@ void Book::setSingleMode(bool value) {
     emit pageChanged(false);
 }
 
-// Modifie le mode de la page de couverture du livre électronique.
-void Book::setCoverPageMode(bool value) {
-    setSingleMode(false);
-    coverPageMode = value;
-    if ((coverPageMode && currPage) != 0)//vérifie si le mode de page de couverture activé & si page actuelle pas première page.
-    {
-        currPage = currPage - 1 + (currPage % 2);
-    } else {
-        currPage = currPage - (currPage % 2);
-    }
+void Book::setDoubleMode(bool value) {
+    doubleMode = value;
     changeCurrImage();
-    emit pageChanged(true);
+    emit pageChanged(false);
 }
 
 void Book::setCurrPage(int val) {
@@ -68,7 +60,7 @@ void Book::setCurrPage(int val) {
 
 // Mise à jour de l'image  affichée en fonction du mode de page et de la page actuelle
 void Book::changeCurrImage() {
-    if (singleMode || currPage==totalPage-1 || (!singleMode && coverPageMode && currPage==0)) {
+    if (singleMode || currPage==totalPage-1 || (!singleMode && currPage==0)) {
         currImage = QPixmap(tabPathToImage[currPage]);
     } else {
         currImage = Image::combine(QPixmap(tabPathToImage[currPage]), tabPathToImage[currPage+1] );
@@ -78,7 +70,7 @@ void Book::changeCurrImage() {
 // Passage à la page suivante
 void Book::next() {
     if ((currPage<totalPage-1 && singleMode) || currPage<totalPage-2 ) {
-        if (singleMode || currPage+1==totalPage-1 || (!singleMode && currPage==0 && coverPageMode)) {
+        if (singleMode || currPage+1==totalPage-1 || (!singleMode && currPage==0)) {
             currPage = currPage + 1;
         } else {
             currPage = currPage + 2;
@@ -116,7 +108,7 @@ void Book::first() {
 void Book::last() {
     if (singleMode) {
         currPage = totalPage - 1;
-    } else if (!singleMode && coverPageMode) {
+    } else if (!singleMode) {
         currPage = totalPage - 1 - (totalPage % 2);
     } else {
         currPage = totalPage - 1 - ((totalPage - 1) % 2);
@@ -129,11 +121,7 @@ void Book::last() {
 QString Book::getRatio() {
     return ratio;
 }
-/*
-QString Book::getFileName(){
-    QString filename = QFileDialog::getOpenFileName(this, "Open", "../", filter);
-    return (filename);
-}*/
+
 
 QPixmap Book::getCurrImage() {
     return currImage;

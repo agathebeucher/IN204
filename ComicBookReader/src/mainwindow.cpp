@@ -42,13 +42,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QShortcut *zoomInShortcut = new QShortcut(QKeySequence("CTRL++"), this);
     QShortcut *zoomOutShortcut = new QShortcut(QKeySequence("CTRL+-"), this);
     QShortcut *resetZoom = new QShortcut(QKeySequence("CTRL+0"), this);
-    QShortcut *bookmarkShortcut = new QShortcut(QKeySequence("CTRL+B"), this);
-    QShortcut *gotobookmarkShortcut = new QShortcut(QKeySequence("CTRL+B"), this);
+    QAction *actionBookmark = new QAction("Double Page", this);
+    QAction *actionGotobookmark = new QAction("Simple Page", this);
+    QAction *actionDoublePage = new QAction("Double Page", this);
+    QAction *actionSimplePage = new QAction("Simple Page", this);
     connect(zoomInShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomIn_clicked);
     connect(zoomOutShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomOut_clicked);
     connect(resetZoom, &QShortcut::activated, this, &MainWindow::setDefaultZoom);
-    connect(bookmarkShortcut, &QShortcut::activated, this, &MainWindow::on_Bookmark_clicked);// Dans le constructeur de MainWindow ou dans une autre fonction d'initialisation
-    connect(gotobookmarkShortcut, &QShortcut::activated, this, &MainWindow::on_Gotobookmark_clicked);}
+    connect(actionBookmark,  &QAction::triggered, this, &MainWindow::on_actionBookmark_triggered);// Dans le constructeur de MainWindow ou dans une autre fonction d'initialisation
+    connect(actionGotobookmark,  &QAction::triggered, this, &MainWindow::on_actionGotobookmark_triggered);
+    connect(actionDoublePage, &QAction::triggered, this, &MainWindow::on_actionDoublePage_triggered);
+    connect(actionSimplePage, &QAction::triggered, this, &MainWindow::on_actionSimplePage_triggered);
+    }
 
 MainWindow::~MainWindow()
 {
@@ -119,11 +124,7 @@ void MainWindow::on_ZoomIn_clicked()
     }
 }
 
-void MainWindow::on_Gotobookmark_clicked()
-{
-    currentBook->setCurrPage(currentBookmark->get_pagemarked()-1);
-    refreshScreen(true);
-}
+
 
 void MainWindow::on_comboBox_activated(const QString &r)
 {
@@ -145,7 +146,6 @@ void MainWindow::on_currPageDisplay_editingFinished()
         currentBook->setCurrPage(page-1);
     }
 }
-
 
 void MainWindow::on_actionClose_triggered()
 {
@@ -222,8 +222,6 @@ void MainWindow::on_actionOpen_triggered()
     currentBook->setPathToDir(path); 
 }
 
-
-
 void MainWindow::on_actionCombine_triggered()
 {
     if (currentBook) {
@@ -235,28 +233,22 @@ void MainWindow::on_actionCombine_triggered()
     }
 }
 
-void MainWindow::on_actionSingle_Page_triggered()
+void MainWindow::on_actionSimplePage_triggered()
 {
     if (!currentBook) return;
+    currentBook->setDoubleMode(false);
     currentBook->setSingleMode(true);
     refreshScreen(false);
 }
 
-void MainWindow::on_actionCover_page_triggered()
-{
+void MainWindow::on_actionDoublePage_triggered(){
     if (!currentBook) return;
-    currentBook->setCoverPageMode(true);
+    currentBook->setSingleMode(false);
+    currentBook->setDoubleMode(true);
     refreshScreen(false);
 }
 
-void MainWindow::on_actionNo_cover_page_triggered()
-{
-    if (!currentBook) return;
-    currentBook->setCoverPageMode(false);
-    refreshScreen(false);
-}
-
-void MainWindow::on_Bookmark_clicked() {
+void MainWindow::on_actionBookmark_triggered() {
     int currentPageNumber = currentBook->getCurrPage();
 
     // Ouverture du fichier bookmark en mode écriture pour mettre à jour le nouveau marque-page
@@ -265,10 +257,17 @@ void MainWindow::on_Bookmark_clicked() {
     ui->page_Bookmark->setText(QString::number(currentBookmark->get_pagemarked()));
 }
 
+void MainWindow::on_actionGotobookmark_triggered()
+{
+    currentBook->setCurrPage(currentBookmark->get_pagemarked()-1);
+    refreshScreen(true);
+}
+
+
+
 void MainWindow::setImage(QPixmap image) {
     ui->screen->setPixmap(image);
 }
-
 
 void MainWindow::refreshScreen(bool numPageChanged) {
     if (!currentBook || !ui || !ui->screen || !ui->screen->pixmap()) {
@@ -312,7 +311,6 @@ void MainWindow::setDefaultZoom() {
     ui->comboBox->setCurrentIndex(0);
     refreshScreen(false);
 }
-
 
 void MainWindow::combineSlot(QList<int> l, QString s) {
     QFileInfoList* fileList = currentBook->getFileInfoList((QList<int>) l);

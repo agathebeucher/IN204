@@ -42,31 +42,33 @@ private slots:
     void on_comboBox_activated(const QString &r);
     // Set the current page
     void on_currPageDisplay_editingFinished();
-    void on_Bookmark_clicked();
-    void on_Gotobookmark_clicked();
+    
 
 // Action on Menu
+    // Fermeture de la fenêtre    
     void on_actionClose_triggered();
+    // Donne info sur Qt
     void on_actionAbout_triggered();
-    // Open a comic book, extension have to be in filter
-    // Display the first page of the comic book
+    // Ouverture du Comicbook, affichage de la page de garde et du dernier bookmark
     void on_actionOpen_triggered();
-    // Combine images and create an archive with these images
+    // Création d'une archive avec les pages séléctionnées
     void on_actionCombine_triggered();
-    // Set single page mode
-    void on_actionSingle_Page_triggered();
-    // Set double page mode and cover page mode (first page is shown alone)
-    void on_actionCover_page_triggered();
-    // Set double page mode and non cover page mode (first two pages are shown)
-    void on_actionNo_cover_page_triggered();
+    // Mode une seule page
+    void on_actionSimplePage_triggered();
+    // Mode double page
+    void on_actionDoublePage_triggered();
+    // Définir un marque-page
+    void on_actionBookmark_triggered();
+    // Aller à la dernière page marquée
+    void on_actionGotobookmark_triggered();
 
 // Display
     void setImage(QPixmap image);
-    // Refresh the image shown according to parameters, update the page number if necessary
+    // Refresh l'image affichée en fonction des paramètres et mise à jour de la page number
     void refreshScreen(bool numPageChanged);
-    // Display an informtion box message
+    // Affichage d'un message
     void msgBox(QString msg);
-    // Resize the image when the main window is resized
+    // Redimensionnement de l'image quand 'event'
     void resizeEvent(QResizeEvent *event);
     // Set "Page fit" zoom, only used for the reset zoom shortcut
     void setDefaultZoom();

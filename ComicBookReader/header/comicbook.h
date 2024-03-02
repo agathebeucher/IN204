@@ -23,6 +23,8 @@ private:
     int totalPage;
     // Une seule image affiché
     bool singleMode;
+    // Deux image affichées
+    bool doubleMode;
     // Seulement utilisé dans le mode double page (single page mode si true)
     bool coverPageMode;
     // Image actuelle sur l'écran sans zoom
@@ -38,8 +40,8 @@ public:
     void setRatio(QString r);
     // Set the page mode
     void setSingleMode(bool val);
-    // Set if cover page mode
-    void setCoverPageMode(bool val);
+    // Set the page mode
+    void setDoubleMode(bool val);
     // Set current page
     void setCurrPage(int val);
     // Update the current image according to the different parameters (current page, singleMode, coverPageMode, ...)

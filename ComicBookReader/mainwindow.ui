@@ -33,52 +33,6 @@
     </size>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QPushButton" name="Bookmark">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <family>Montserrat</family>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>BookMark</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="Gotobookmark">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <family>Montserrat</family>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Go to last boomark</string>
-      </property>
-     </widget>
-    </item>
     <item alignment="Qt::AlignHCenter">
      <widget class="QLabel" name="Last_Bookmark">
       <property name="sizePolicy">
@@ -151,7 +105,7 @@
        <property name="geometry">
         <rect>
          <x>453</x>
-         <y>119</y>
+         <y>134</y>
          <width>16</width>
          <height>16</height>
         </rect>
@@ -241,7 +195,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Front Page</string>
+           <string>Première page</string>
           </property>
          </widget>
         </item>
@@ -264,7 +218,7 @@
            <string/>
           </property>
           <property name="text">
-           <string>&lt;&lt;</string>
+           <string>&lt;</string>
           </property>
          </widget>
         </item>
@@ -284,7 +238,7 @@
            </font>
           </property>
           <property name="text">
-           <string>&gt;&gt;</string>
+           <string>&gt;</string>
           </property>
          </widget>
         </item>
@@ -304,7 +258,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Last Page</string>
+           <string>Dernière Page</string>
           </property>
          </widget>
         </item>
@@ -385,7 +339,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Fichier</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionCombine"/>
@@ -394,32 +348,27 @@
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
-   <widget class="QMenu" name="menuOption">
+   <widget class="QMenu" name="menuAffichage">
     <property name="title">
-     <string>Option</string>
+     <string>Affichage</string>
     </property>
-    <widget class="QMenu" name="menuDisplay_Mode">
-     <property name="title">
-      <string>Page Mode</string>
-     </property>
-     <widget class="QMenu" name="menuDouble_page">
-      <property name="title">
-       <string>Double page</string>
-      </property>
-      <addaction name="actionCover_page"/>
-      <addaction name="actionNo_cover_page"/>
-     </widget>
-     <addaction name="actionSingle_Page"/>
-     <addaction name="menuDouble_page"/>
-    </widget>
-    <addaction name="menuDisplay_Mode"/>
+    <addaction name="actionSimplePage"/>
+    <addaction name="actionDoublePage"/>
+   </widget>
+   <widget class="QMenu" name="menuBookmark">
+    <property name="title">
+     <string>Bookmark</string>
+    </property>
+    <addaction name="actionBookmark"/>
+    <addaction name="actionGotobookmark"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuOption"/>
+   <addaction name="menuBookmark"/>
+   <addaction name="menuAffichage"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>Ouvrir</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -427,7 +376,7 @@
   </action>
   <action name="actionClose">
    <property name="text">
-    <string>Close</string>
+    <string>Fermer</string>
    </property>
   </action>
   <action name="actionCombine">
@@ -440,12 +389,7 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>AboutQt</string>
-   </property>
-  </action>
-  <action name="actionSingle_Page">
-   <property name="text">
-    <string>Single page</string>
+    <string>A propos de Qt</string>
    </property>
   </action>
   <action name="actionRaw">
@@ -463,14 +407,24 @@
     <string>Drawing focused</string>
    </property>
   </action>
-  <action name="actionCover_page">
+  <action name="actionSimplePage">
    <property name="text">
-    <string>Cover page</string>
+    <string>Simple page</string>
    </property>
   </action>
-  <action name="actionNo_cover_page">
+  <action name="actionDoublePage">
    <property name="text">
-    <string>No cover page</string>
+    <string>Double page</string>
+   </property>
+  </action>
+  <action name="actionBookmark">
+   <property name="text">
+    <string>Marquer la page</string>
+   </property>
+  </action>
+  <action name="actionGotobookmark">
+   <property name="text">
+    <string>Aller au dernier marque-page</string>
    </property>
   </action>
  </widget>
