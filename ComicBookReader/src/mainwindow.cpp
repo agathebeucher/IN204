@@ -173,10 +173,9 @@ void MainWindow::on_actionOpen_triggered()
     currentBook = new Book();
     currentBookmark= new Bookmark();
 
-    currentBookmark->set_bookmarkFilename(filename);
+    currentBookmark->set_bookmarkFilename(filename+"Bookmark/");
     
     // Vérifier si un fichier de marque-page existe et le charger s'il existe
-    
     QString bookmarkFile=currentBookmark->get_bookmarkFilename();
     if (fileExists(bookmarkFile)) {
         std::string bookmarkFilename = bookmarkFile.toStdString();
@@ -262,7 +261,7 @@ void MainWindow::on_Bookmark_clicked() {
 
     // Ouverture du fichier bookmark en mode écriture pour mettre à jour le nouveau marque-page
     currentBookmark->change_bookmarkfile(currentBookmark->get_bookmarkFilename(),currentPageNumber);
-    currentBookmark->set_pagemarked(currentPageNumber);
+    currentBookmark->set_pagemarked(currentPageNumber+1);
     ui->page_Bookmark->setText(QString::number(currentBookmark->get_pagemarked()));
 }
 
