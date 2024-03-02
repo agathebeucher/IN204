@@ -129,6 +129,11 @@ void Book::last() {
 QString Book::getRatio() {
     return ratio;
 }
+/*
+QString Book::getFileName(){
+    QString filename = QFileDialog::getOpenFileName(this, "Open", "../", filter);
+    return (filename);
+}*/
 
 QPixmap Book::getCurrImage() {
     return currImage;

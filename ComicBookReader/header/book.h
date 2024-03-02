@@ -56,6 +56,8 @@ public:
 
     // Return the performed zoom
     QString getRatio();
+    // Renvoie le nom de l'archive
+    //QString getFileName();
     // Return number of pages of the Comic Book
     int getTotalPage();
     // Return current page number

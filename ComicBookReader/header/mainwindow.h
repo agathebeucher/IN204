@@ -43,6 +43,8 @@ private slots:
     // Set the current page
     void on_currPageDisplay_editingFinished();
     void on_Bookmark_clicked();
+    void on_Gotobookmark_clicked();
+
 // Action on Menu
     void on_actionClose_triggered();
     void on_actionAbout_triggered();
@@ -76,7 +78,7 @@ private slots:
     void wheelEvent(QWheelEvent *event) override;
     // Key shortcuts
     void keyReleaseEvent(QKeyEvent *event);
-    bool fileExists(const QString& fileName);
+    bool fileExists(QString fileName);
 
 
 signals:

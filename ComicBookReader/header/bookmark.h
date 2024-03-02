@@ -13,14 +13,19 @@ class Bookmark : public QObject
     Q_OBJECT
 private:
     int page_marked;
+    QString bookmarkFilename;
 
 public:
     Bookmark();
     ~Bookmark();
-
-    void set_page_marked(int val);
-    void Bookmark::initialize_bookmarkfile(QString bookmarkFilename, int val);
-    void Bookmark::change_bookmark_file(int val);
+    
+    void set_bookmarkFilename(QString new_filename);
+    void set_pagemarked(int val);
+    int get_pagemarked();
+    QString get_bookmarkFilename();
+    
+    void initialize_bookmarkfile(QString bookmarkFilename, int val);
+    void change_bookmarkfile(QString bookmarkFilename,int val);
 };
 
 #endif // BOOKMARK_H
