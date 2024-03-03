@@ -7,7 +7,7 @@
 #include <QList>
 #include "../header/comicbook.h"
 #include "../header/bookmark.h"
-#include "../header/combinewindow.h"
+#include "../header/assemblage.h"
 #include <QKeyEvent>
 
 namespace Ui {
@@ -22,7 +22,7 @@ private:
     Book* currentBook;
     Bookmark* currentBookmark;
     // Dialog window used when combining images
-    CombineWindow* combineDialogWindow;
+    Assemblage* assemblerDialogWindow;
     // Supported files filter
     static QString filter;
 
@@ -52,7 +52,7 @@ private slots:
     // Ouverture du Comicbook, affichage de la page de garde et du dernier bookmark
     void on_actionOpen_triggered();
     // Création d'une archive avec les pages séléctionnées
-    void on_actionCombine_triggered();
+    void on_actionAssembler_triggered();
     // Mode une seule page
     void on_actionSimplePage_triggered();
     // Mode double page
@@ -74,7 +74,7 @@ private slots:
     void setDefaultZoom();
 
     // Create an archive with path s containing all images in l, only used after successful call of on_actionCombine_triggered
-    void combineSlot(QList<int> l, QString s);
+    void assemblerSlot(QList<int> l, QString s);
     // Event filter : Ctrl + mouse wheel applies a zoom instead of a scroll
     bool eventFilter(QObject *watched, QEvent *event);
     void wheelEvent(QWheelEvent *event) override;

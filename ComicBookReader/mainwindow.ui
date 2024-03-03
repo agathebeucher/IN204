@@ -342,7 +342,7 @@
      <string>Fichier</string>
     </property>
     <addaction name="actionOpen"/>
-    <addaction name="actionCombine"/>
+    <addaction name="actionAssembler"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
     <addaction name="separator"/>
@@ -379,9 +379,9 @@
     <string>Fermer</string>
    </property>
   </action>
-  <action name="actionCombine">
+  <action name="actionAssembler">
    <property name="text">
-    <string>Combine</string>
+    <string>Assembler</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>

@@ -18,16 +18,16 @@ SOURCES += src/main.cpp\
     src/comicbook.cpp \
     src/image.cpp \
     src/archive.cpp \
-    src/combinewindow.cpp\
+    src/assemblage.cpp\
     src/bookmark.cpp
 
 HEADERS  += header/mainwindow.h \
     header/comicbook.h \
     header/image.h \
     header/archive.h \
-    header/combinewindow.h \
+    header/assemblage.h \
     header/bookmark.h
 
 
 FORMS    += mainwindow.ui \
-    combinewindow.ui
+    assemblage.ui

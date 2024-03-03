@@ -124,8 +124,6 @@ void MainWindow::on_ZoomIn_clicked()
     }
 }
 
-
-
 void MainWindow::on_comboBox_activated(const QString &r)
 {
     if (!currentBook) return;
@@ -222,12 +220,12 @@ void MainWindow::on_actionOpen_triggered()
     currentBook->setPathToDir(path); 
 }
 
-void MainWindow::on_actionCombine_triggered()
+void MainWindow::on_actionAssembler_triggered()
 {
     if (currentBook) {
-        combineDialogWindow = new CombineWindow(this, currentBook->getTotalPage());
-        combineDialogWindow->show();
-        connect(combineDialogWindow, SIGNAL(combineSignal(QList<int>,QString)), this, SLOT(combineSlot(QList<int>,QString)));
+        assemblerDialogWindow = new Assemblage(this, currentBook->getTotalPage());
+        assemblerDialogWindow->show();
+        connect(assemblerDialogWindow, SIGNAL(assemblerSignal(QList<int>,QString)), this, SLOT(assemblerSlot(QList<int>,QString)));
     } else {
         msgBox(QString("No Comic Book"));
     }
@@ -262,8 +260,6 @@ void MainWindow::on_actionGotobookmark_triggered()
     currentBook->setCurrPage(currentBookmark->get_pagemarked()-1);
     refreshScreen(true);
 }
-
-
 
 void MainWindow::setImage(QPixmap image) {
     ui->screen->setPixmap(image);
@@ -312,7 +308,7 @@ void MainWindow::setDefaultZoom() {
     refreshScreen(false);
 }
 
-void MainWindow::combineSlot(QList<int> l, QString s) {
+void MainWindow::assemblerSlot(QList<int> l, QString s) {
     QFileInfoList* fileList = currentBook->getFileInfoList((QList<int>) l);
     CompresserZIP(*fileList, s);
     delete fileList;
