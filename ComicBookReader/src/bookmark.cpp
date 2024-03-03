@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include <fstream>
+#include <QDebug>
 
 // Constructeur
 Bookmark::Bookmark() : 
@@ -15,13 +16,16 @@ Bookmark::~Bookmark()
 {}
 
 void Bookmark::set_bookmarkFilename(QString new_filename){
+    int exemplePos = new_filename.lastIndexOf("/Exemple/") + QString("/Exemple/").length();
     int lastDotPos = new_filename.lastIndexOf(".");
+
     if (lastDotPos != -1) {
-        // Extraire le nom du fichier sans l'extension
-        bookmarkFilename = new_filename.left(lastDotPos);
+        // Construire le chemin en insérant "/Bookmark/" après "/Exemple/"
+        QString pathBeforeExemple = new_filename.left(exemplePos);
+        QString fileNameWithoutExtension = new_filename.mid(exemplePos, lastDotPos - exemplePos);
+        bookmarkFilename = pathBeforeExemple + "Bookmark/" + fileNameWithoutExtension + "_bookmark.txt";
     }
-    // Ajouter "_bookmark.txt" comme nouvelle extension
-    bookmarkFilename += "_bookmark.txt";
+    qDebug() << bookmarkFilename;
 }
 
 void Bookmark::set_pagemarked(int val){
