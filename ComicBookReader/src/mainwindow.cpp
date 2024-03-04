@@ -7,7 +7,12 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
 #include <QPixmap>
+#include <QDebug>
 #include <QDir>
 #include <QScrollArea>
 #include <QScrollBar>
@@ -37,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scrollArea->verticalScrollBar()->installEventFilter(this);
     setWindowTitle(tr("Comic Book Reader"));
     ui->page_Bookmark->setText(QString(""));
-
+    QTreeWidget *tree=ui->treeWidget;
 // Shortcut part
     QShortcut *zoomInShortcut = new QShortcut(QKeySequence("CTRL++"), this);
     QShortcut *zoomOutShortcut = new QShortcut(QKeySequence("CTRL+-"), this);
@@ -53,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionGotobookmark,  &QAction::triggered, this, &MainWindow::on_actionGotobookmark_triggered);
     connect(actionDoublePage, &QAction::triggered, this, &MainWindow::on_actionDoublePage_triggered);
     connect(actionSimplePage, &QAction::triggered, this, &MainWindow::on_actionSimplePage_triggered);
+    connect(tree, &QTreeWidget::itemClicked, this, &MainWindow::on_treeWidget_itemClicked);
     }
 
 MainWindow::~MainWindow()
@@ -62,6 +68,47 @@ MainWindow::~MainWindow()
     delete currentBookmark;
     QDir dir("../data/");
     dir.removeRecursively();
+}
+
+void MainWindow::loadConfig(QString configFilePath)
+{
+    QFile file(configFilePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Impossible d'ouvrir le fichier de configuration:" << configFilePath;
+        return;
+    }
+    QByteArray fileContent = file.readAll();
+    QJsonDocument document = QJsonDocument::fromJson(fileContent);
+
+    if (!document.isObject()) {
+        qWarning("Le document JSON n'est pas un objet.");
+        return;
+    }
+
+    QJsonObject rootObject = document.object();
+    QJsonArray items = rootObject.value("chapters").toArray();
+
+    ui->treeWidget->clear(); // Nettoyez le QTreeWidget avant de le remplir
+    populateTreeWidget(items);
+}
+
+void MainWindow::populateTreeWidget(const QJsonArray &items)
+{
+    ui->treeWidget->clear(); // Nettoyer le QTreeWidget avant de le peupler
+    qDebug() << items;
+    for (int i = 0; i < items.size(); ++i) {
+        QJsonObject itemObject = items[i].toObject();
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
+        item->setText(0, itemObject.value("title").toString());
+        item->setData(0, Qt::UserRole, itemObject.value("page").toInt()); // Stocker le numéro de page dans l'élément
+    }
+}
+
+void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
+{
+    int pageNumber = item->data(0, Qt::UserRole).toInt();
+    currentBook->setCurrPage(pageNumber);
+    currentBook->changeCurrImage();
 }
 
 void MainWindow::on_previousPage_clicked()
@@ -169,6 +216,11 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     currentBook = new Book();
+    
+    QString configFilePath = QFileInfo(filename).absolutePath() + "/Config/" + QFileInfo(filename).baseName() + ".json";
+    loadConfig(configFilePath);
+    qDebug() << configFilePath;
+    
     currentBookmark= new Bookmark();
 
     currentBookmark->set_bookmarkFilename(filename+"Bookmark/");

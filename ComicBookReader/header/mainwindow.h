@@ -9,6 +9,7 @@
 #include "../header/bookmark.h"
 #include "../header/assemblage.h"
 #include <QKeyEvent>
+#include <QTreeWidget>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,8 @@ private:
     Ui::MainWindow *ui;
     Book* currentBook;
     Bookmark* currentBookmark;
+    QTreeWidget *treeWidget;
+
     // Dialog window used when combining images
     Assemblage* assemblerDialogWindow;
     // Supported files filter
@@ -31,6 +34,11 @@ public:
     ~MainWindow();
 
 private slots:
+// Tree Widget
+    void loadConfig(QString configFilePath);
+    void populateTreeWidget(const QJsonArray &items);
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+
 // Push buttons
     void on_previousPage_clicked();
     void on_nextPage_clicked();

@@ -46,7 +46,6 @@ public:
     void setCurrPage(int val);
     // Update the current image according to the different parameters (current page, singleMode, coverPageMode, ...)
     void changeCurrImage();
-
     // Go to next page if possible
     void next();
     // Go to previous page if possible
