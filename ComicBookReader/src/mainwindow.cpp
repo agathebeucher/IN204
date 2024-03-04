@@ -95,7 +95,6 @@ void MainWindow::loadConfig(QString configFilePath)
 void MainWindow::populateTreeWidget(const QJsonArray &items)
 {
     ui->treeWidget->clear(); // Nettoyer le QTreeWidget avant de le peupler
-    qDebug() << items;
     for (int i = 0; i < items.size(); ++i) {
         QJsonObject itemObject = items[i].toObject();
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
@@ -219,7 +218,6 @@ void MainWindow::on_actionOpen_triggered()
     
     QString configFilePath = QFileInfo(filename).absolutePath() + "/Config/" + QFileInfo(filename).baseName() + ".json";
     loadConfig(configFilePath);
-    qDebug() << configFilePath;
     
     currentBookmark= new Bookmark();
 

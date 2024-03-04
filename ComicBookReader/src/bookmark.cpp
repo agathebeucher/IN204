@@ -25,7 +25,6 @@ void Bookmark::set_bookmarkFilename(QString new_filename){
         QString fileNameWithoutExtension = new_filename.mid(exemplePos, lastDotPos - exemplePos);
         bookmarkFilename = pathBeforeExemple + "Bookmark/" + fileNameWithoutExtension + "_bookmark.txt";
     }
-    qDebug() << bookmarkFilename;
 }
 
 void Bookmark::set_pagemarked(int val){
