@@ -150,7 +150,7 @@ void MainWindow::populateTreeWidget(const QJsonArray &items)
 void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     int pageNumber = item->data(0, Qt::UserRole).toInt();
-    currentBook->setCurrPage(pageNumber);
+    currentBook->setCurrPage(pageNumber-1);
     currentBook->changeCurrImage();
 }
 
