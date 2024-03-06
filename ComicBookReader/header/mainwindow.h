@@ -46,8 +46,6 @@ private slots:
     void on_firstPage_clicked();
     void on_ZoomOut_clicked();
     void on_ZoomIn_clicked();
-    // Changing the performed zoom
-    void on_comboBox_activated(const QString &r);
     // Set the current page
     void on_currPageDisplay_editingFinished();
     
@@ -65,6 +63,10 @@ private slots:
     void on_actionSimplePage_triggered();
     // Mode double page
     void on_actionDoublePage_triggered();
+    // Redimensionner pour adapter l'entièreté de la page verticalement
+    void on_actionRedimVertical_triggered();
+    // Redimensionner pour adapter l'entièreté de la page hortizontalement 
+    void on_actionRedimHorizontal_triggered();
     // Définir un marque-page
     void on_actionBookmark_triggered();
     // Aller à la dernière page marquée

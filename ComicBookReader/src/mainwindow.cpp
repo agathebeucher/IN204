@@ -51,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction *actionGotobookmark = new QAction("Simple Page", this);
     QAction *actionDoublePage = new QAction("Double Page", this);
     QAction *actionSimplePage = new QAction("Simple Page", this);
+    QAction *actionRedimVertical = new QAction("RedimVertical", this);
+    QAction *actionRedimHorizontal = new QAction("RedimHorizontal", this);
     connect(zoomInShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomIn_clicked);
     connect(zoomOutShortcut, &QShortcut::activated, this, &MainWindow::on_ZoomOut_clicked);
     connect(resetZoom, &QShortcut::activated, this, &MainWindow::setDefaultZoom);
@@ -58,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionGotobookmark,  &QAction::triggered, this, &MainWindow::on_actionGotobookmark_triggered);
     connect(actionDoublePage, &QAction::triggered, this, &MainWindow::on_actionDoublePage_triggered);
     connect(actionSimplePage, &QAction::triggered, this, &MainWindow::on_actionSimplePage_triggered);
+    connect(actionRedimHorizontal, &QAction::triggered, this, &MainWindow::on_actionRedimHorizontal_triggered);
+    connect(actionRedimVertical, &QAction::triggered, this, &MainWindow::on_actionRedimVertical_triggered);
     connect(tree, &QTreeWidget::itemClicked, this, &MainWindow::on_treeWidget_itemClicked);
     }
 
@@ -170,14 +174,6 @@ void MainWindow::on_ZoomIn_clicked()
     }
 }
 
-void MainWindow::on_comboBox_activated(const QString &r)
-{
-    if (!currentBook) return;
-    currentBook->setRatio(r);
-    refreshScreen(false);
-
-}
-
 void MainWindow::on_currPageDisplay_editingFinished()
 {
     int page = ui->currPageDisplay->text().toInt();
@@ -263,7 +259,7 @@ void MainWindow::on_actionOpen_triggered()
     // Afficher l'image dans le QLabel
     ui->screen->setPixmap(image);
 
-    ui->comboBox->setCurrentIndex(0);
+    currentBook->setRatio(QString("Fit page"));
 
     connect(currentBook, SIGNAL(pageChanged(bool)), this, SLOT(refreshScreen(bool) ));
     connect(currentBook, SIGNAL(infoMsgBox(QString)), this, SLOT(msgBox(QString)));
@@ -296,6 +292,18 @@ void MainWindow::on_actionDoublePage_triggered(){
     refreshScreen(false);
 }
 
+void MainWindow::on_actionRedimHorizontal_triggered(){ 
+    if (!currentBook) return;
+    currentBook->setRatio(QString("Fit width"));
+    refreshScreen(false);
+}
+
+void MainWindow::on_actionRedimVertical_triggered(){ 
+    if (!currentBook) return;
+    currentBook->setRatio(QString("Fit page"));
+    refreshScreen(false);
+}
+
 void MainWindow::on_actionBookmark_triggered() {
     int currentPageNumber = currentBook->getCurrPage();
 
@@ -319,7 +327,6 @@ void MainWindow::refreshScreen(bool numPageChanged) {
     if (!currentBook || !ui || !ui->screen || !ui->screen->pixmap()) {
         return; // Vérifier si les pointeurs sont nuls
     }
-
     QPixmap image = currentBook->getCurrImage();
     if (image.isNull()) {
         qDebug() << "Image is null"; // Ajout d'un log pour vérifier si l'image est nulle
@@ -354,7 +361,6 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 void MainWindow::setDefaultZoom() {
     if (!currentBook) return;
     currentBook->setRatio(QString("Fit page"));
-    ui->comboBox->setCurrentIndex(0);
     refreshScreen(false);
 }
 

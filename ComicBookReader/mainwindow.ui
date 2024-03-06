@@ -9,9 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
+    <width>1150</width>
     <height>656</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Montserrat</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -33,31 +38,6 @@
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="4" column="10">
-     <widget class="QComboBox" name="comboBox">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <property name="maxVisibleItems">
-       <number>10</number>
-      </property>
-      <item>
-       <property name="text">
-        <string>Fit page</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Fit width</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Custom</string>
-       </property>
-      </item>
-     </widget>
-    </item>
     <item row="2" column="0" rowspan="2" colspan="8">
      <widget class="QScrollArea" name="scrollArea">
       <property name="sizePolicy">
@@ -90,10 +70,10 @@
       <widget class="QWidget" name="scrollAreaWidgetContents">
        <property name="geometry">
         <rect>
-         <x>375</x>
-         <y>274</y>
+         <x>424</x>
+         <y>263</y>
          <width>16</width>
-         <height>16</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -345,8 +325,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
-     <height>22</height>
+     <width>1150</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -364,8 +344,21 @@
     <property name="title">
      <string>Affichage</string>
     </property>
+    <widget class="QMenu" name="menuRedimensionnement">
+     <property name="font">
+      <font>
+       <family>Montserrat</family>
+      </font>
+     </property>
+     <property name="title">
+      <string>Redimensionnement</string>
+     </property>
+     <addaction name="actionRedimVertical"/>
+     <addaction name="actionRedimHorizontal"/>
+    </widget>
     <addaction name="actionSimplePage"/>
     <addaction name="actionDoublePage"/>
+    <addaction name="menuRedimensionnement"/>
    </widget>
    <widget class="QMenu" name="menuBookmark">
     <property name="title">
@@ -382,6 +375,11 @@
    <property name="text">
     <string>Ouvrir</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
@@ -390,10 +388,20 @@
    <property name="text">
     <string>Fermer</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
   </action>
   <action name="actionAssembler">
    <property name="text">
     <string>Assembler</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -423,6 +431,11 @@
    <property name="text">
     <string>Simple page</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
   </action>
   <action name="actionDoublePage">
    <property name="text">
@@ -433,10 +446,40 @@
    <property name="text">
     <string>Marquer la page</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
   </action>
   <action name="actionGotobookmark">
    <property name="text">
     <string>Aller au dernier marque-page</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionRedimVertical">
+   <property name="text">
+    <string>Vertical</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionRedimHorizontal">
+   <property name="text">
+    <string>Horizontal</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+    </font>
    </property>
   </action>
  </widget>
