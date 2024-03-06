@@ -34,10 +34,13 @@ public:
     ~MainWindow();
 
 private slots:
-// Tree Widget
-    void loadConfig(QString configFilePath);
+// Tree Widget : Table des Matières (TDM)
+    void loadConfigTDM(QString configTDMFilePath);
     void populateTreeWidget(const QJsonArray &items);
     void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+
+// List Widget : Infos
+    void loadConfigInfos(QString configInfosFilePath);
 
 // Push buttons
     void on_previousPage_clicked();

@@ -18,6 +18,8 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QWheelEvent>
+#include <QListWidget>
+#include <QVBoxLayout>
 #include <QDebug> 
 #include <string>
 #include <iostream>
@@ -74,11 +76,11 @@ MainWindow::~MainWindow()
     dir.removeRecursively();
 }
 
-void MainWindow::loadConfig(QString configFilePath)
+void MainWindow::loadConfigTDM(QString configTDMFilePath)
 {
-    QFile file(configFilePath);
+    QFile file(configTDMFilePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Impossible d'ouvrir le fichier de configuration:" << configFilePath;
+        qWarning() << "Impossible d'ouvrir le fichier de configuration:" << configTDMFilePath;
         return;
     }
     QByteArray fileContent = file.readAll();
@@ -94,6 +96,44 @@ void MainWindow::loadConfig(QString configFilePath)
 
     ui->treeWidget->clear(); // Nettoyez le QTreeWidget avant de le remplir
     populateTreeWidget(items);
+}
+
+void MainWindow::loadConfigInfos(QString configInfosFilePath)
+{
+    QFile file(configInfosFilePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Impossible d'ouvrir le fichier de configuration:" << configInfosFilePath;
+        return;
+    }
+
+    QJsonDocument document = QJsonDocument::fromJson(file.readAll());
+    QJsonObject jsonObject = document.object();
+    QListWidget *listWidget = ui->Infos;
+    QStringList keys = {"Serie", "Edition", "Titre","Tome", "Identifiant", "Scenario", "Dessin", "Couleurs", "DepotLegal", "Estimation", "Editeur", "Collection", "Format", "EAN_ISBN", "Planches", "AutresInfos", "DateCreation", "DateMiseAJour"};
+    for (const QString &key : keys) {
+        if (jsonObject.contains(key)) {
+            // Créez un nouveau widget qui servira de conteneur
+            QWidget *widget = new QWidget();
+            QHBoxLayout *layout = new QHBoxLayout(widget); // Utilisez un QHBoxLayout
+            layout->setContentsMargins(0, 0, 0, 0); // Réduit les marges autour des widgets
+            layout->setSpacing(0); // Réduit l'espacement entre les widgets
+            QLabel *label = new QLabel();
+            // Appliquez le formatage HTML pour mettre la clé en gras
+            QString itemText = "<b>" + key + " :</b> " + jsonObject.value(key).toString();
+            label->setText(itemText);
+            label->setTextFormat(Qt::RichText); // Assurez-vous que le formatage RichText est activé
+            layout->addWidget(label);
+
+            // Créez un QListWidgetItem
+            QListWidgetItem *item = new QListWidgetItem(ui->Infos);
+            // Ajustez la taille de l'élément à celle du widget
+            item->setSizeHint(widget->sizeHint());
+            
+            // Ajoutez le widget contenant le QLabel à la liste
+            ui->Infos->setItemWidget(item, widget);
+        }
+    }
+    file.close();
 }
 
 void MainWindow::populateTreeWidget(const QJsonArray &items)
@@ -212,11 +252,11 @@ void MainWindow::on_actionOpen_triggered()
     }
     currentBook = new ComicBook();
     
-    QString configFilePath = QFileInfo(filename).absolutePath() + "/Config/" + QFileInfo(filename).baseName() + ".json";
-    loadConfig(configFilePath);
-    
+    QString configTDMFilePath = QFileInfo(filename).absolutePath() + "/Config/Table_des_matieres/" + QFileInfo(filename).baseName() + "_tdm.json";
+    loadConfigTDM(configTDMFilePath);
+    QString configInfoFilePath = QFileInfo(filename).absolutePath() + "/Config/Infos/" + QFileInfo(filename).baseName() + "_infos.json";
     currentBookmark= new Bookmark();
-
+    loadConfigInfos(configInfoFilePath);
     currentBookmark->set_bookmarkFilename(filename+"Bookmark/");
     
     // Vérifier si un fichier de marque-page existe et le charger s'il existe

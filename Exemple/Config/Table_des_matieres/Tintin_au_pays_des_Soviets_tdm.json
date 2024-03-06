@@ -1,0 +1,21 @@
+{
+    "chapters": [
+      {
+        "title": "Page de garde",
+        "page": 1
+      },
+      {
+        "title": "Introduction",
+        "page": 3
+      },
+      {
+        "title": "Conclusion",
+        "page": 140
+      },
+      {
+        "title": "Dernière Page",
+        "page": 142
+      }
+    ]
+  }
+  
