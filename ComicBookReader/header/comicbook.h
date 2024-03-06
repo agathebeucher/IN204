@@ -7,7 +7,7 @@
 #include <QPixmap>
 #include <QFileDialog>
 
-class Book : public QObject
+class ComicBook : public QObject
 {
     Q_OBJECT
 private:
@@ -22,7 +22,7 @@ private:
     // Nombre de pages
     int totalPage;
     // Une seule image affiché
-    bool singleMode;
+    bool simpleMode;
     // Deux image affichées
     bool doubleMode;
     // Seulement utilisé dans le mode double page (single page mode si true)
@@ -31,15 +31,15 @@ private:
     QPixmap currImage;
 
 public:
-    Book();
-    ~Book();
+    ComicBook();
+    ~ComicBook();
 
     // Set the path to the dir with all the images and create the tab with all the path
     void setPathToDir (QString path);
     // Set the performed zoom
     void setRatio(QString r);
     // Set the page mode
-    void setSingleMode(bool val);
+    void setSimpleMode(bool val);
     // Set the page mode
     void setDoubleMode(bool val);
     // Set current page

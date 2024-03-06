@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 private:
     Ui::MainWindow *ui;
-    Book* currentBook;
+    ComicBook* currentBook;
     Bookmark* currentBookmark;
     QTreeWidget *treeWidget;
 
@@ -80,15 +80,15 @@ private slots:
     void msgBox(QString msg);
     // Redimensionnement de l'image quand 'event'
     void resizeEvent(QResizeEvent *event);
-    // Set "Page fit" zoom, only used for the reset zoom shortcut
+    // Définit "Page fit" zoom, only used for the reset zoom shortcut
     void setDefaultZoom();
 
-    // Create an archive with path s containing all images in l, only used after successful call of on_actionCombine_triggered
+    // Crée une archive au chemin s qui contient toutes les images dans l
     void assemblerSlot(QList<int> l, QString s);
-    // Event filter : Ctrl + mouse wheel applies a zoom instead of a scroll
+    // Filtre d'évènement : "Ctrl + souris"  applique un zoom plutôt qu'un scroll
     bool eventFilter(QObject *watched, QEvent *event);
     void wheelEvent(QWheelEvent *event) override;
-    // Key shortcuts
+    // Raccourcis
     void keyReleaseEvent(QKeyEvent *event);
     bool fileExists(QString fileName);
 

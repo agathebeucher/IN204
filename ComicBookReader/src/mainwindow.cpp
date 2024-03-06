@@ -210,7 +210,7 @@ void MainWindow::on_actionOpen_triggered()
         msgBox("No image or no supported image found");
         return;
     }
-    currentBook = new Book();
+    currentBook = new ComicBook();
     
     QString configFilePath = QFileInfo(filename).absolutePath() + "/Config/" + QFileInfo(filename).baseName() + ".json";
     loadConfig(configFilePath);
@@ -259,7 +259,7 @@ void MainWindow::on_actionOpen_triggered()
     // Afficher l'image dans le QLabel
     ui->screen->setPixmap(image);
 
-    currentBook->setRatio(QString("Fit page"));
+    currentBook->setRatio(QString("RedimVertical"));
 
     connect(currentBook, SIGNAL(pageChanged(bool)), this, SLOT(refreshScreen(bool) ));
     connect(currentBook, SIGNAL(infoMsgBox(QString)), this, SLOT(msgBox(QString)));
@@ -281,26 +281,26 @@ void MainWindow::on_actionSimplePage_triggered()
 {
     if (!currentBook) return;
     currentBook->setDoubleMode(false);
-    currentBook->setSingleMode(true);
+    currentBook->setSimpleMode(true);
     refreshScreen(false);
 }
 
 void MainWindow::on_actionDoublePage_triggered(){
     if (!currentBook) return;
-    currentBook->setSingleMode(false);
+    currentBook->setSimpleMode(false);
     currentBook->setDoubleMode(true);
     refreshScreen(false);
 }
 
 void MainWindow::on_actionRedimHorizontal_triggered(){ 
     if (!currentBook) return;
-    currentBook->setRatio(QString("Fit width"));
+    currentBook->setRatio(QString("RedimHorizontal"));
     refreshScreen(false);
 }
 
 void MainWindow::on_actionRedimVertical_triggered(){ 
     if (!currentBook) return;
-    currentBook->setRatio(QString("Fit page"));
+    currentBook->setRatio(QString("RedimVertical"));
     refreshScreen(false);
 }
 
@@ -360,7 +360,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 void MainWindow::setDefaultZoom() {
     if (!currentBook) return;
-    currentBook->setRatio(QString("Fit page"));
+    currentBook->setRatio(QString("RedimVertical"));
     refreshScreen(false);
 }
 

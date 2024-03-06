@@ -14,9 +14,9 @@ void Image::setSize(int w, int h) {
 }
 
 QPixmap Image::resize(QPixmap image, QString ratio, QSize valRatio) {
-    if (ratio==QString("Fit page")) {
+    if (ratio==QString("RedimVertical")) {
         return image.scaledToHeight(height);
-    } else if (ratio==QString("Fit width")) {
+    } else if (ratio==QString("RedimHorizontal")) {
         return image.scaledToWidth(width*0.98);
     } else {
         return image.scaled(valRatio);

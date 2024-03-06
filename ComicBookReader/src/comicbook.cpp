@@ -10,17 +10,17 @@ DEFINITION DE LA CLASSE "BOOK" et de ses méthodes
 #include <QMessageBox>
 
 // Constructeur de la classe : Initialisation de ses méthodes, hérite de QObject
-Book::Book() : 
-    QObject(), pathToDir(""), currPage(0), totalPage(0), ratio(QString("Fit page")), singleMode(true), doubleMode(false) {}
+ComicBook::ComicBook() : 
+    QObject(), pathToDir(""), currPage(0), totalPage(0), ratio(QString("RedimVertical")), simpleMode(true), doubleMode(false) {}
 
 // Destructeur de la classe
-Book::~Book() {
+ComicBook::~ComicBook() {
 }
 
 /*
 Définit "path" comme chemin du repértoire contenant les images du livres
 */
-void Book::setPathToDir(QString path) {
+void ComicBook::setPathToDir(QString path) {
     pathToDir = path;
     QDir dir(path);//crée 'dir'
     dir.setNameFilters(Image::imageFilters);//définit filtre de nom de fichiers avec ceux de la classe Image::imagesFilters
@@ -33,24 +33,24 @@ void Book::setPathToDir(QString path) {
     emit pageChanged(true);
 }
 
-void Book::setRatio(QString r) {
-    ratio = r;//stocke mode de rapport d'affichage de l'image ("Fit page" ou "Stretch")
+void ComicBook::setRatio(QString r) {
+    ratio = r;//stock le mode de rapport d'affichage de l'image ("RedimVertical" ou "RedimHorizontal")
 }
 
 // Modifie le mode d'affichage vers le mode 'une seule page'
-void Book::setSingleMode(bool value) {
-    singleMode = value;
+void ComicBook::setSimpleMode(bool value) {
+    simpleMode = value;
     changeCurrImage();
     emit pageChanged(false);
 }
 
-void Book::setDoubleMode(bool value) {
+void ComicBook::setDoubleMode(bool value) {
     doubleMode = value;
     changeCurrImage();
     emit pageChanged(false);
 }
 
-void Book::setCurrPage(int val) {
+void ComicBook::setCurrPage(int val) {
     if (val>=0 && val<totalPage) {
         currPage=val;
         changeCurrImage();
@@ -59,8 +59,8 @@ void Book::setCurrPage(int val) {
 }
 
 // Mise à jour de l'image  affichée en fonction du mode de page et de la page actuelle
-void Book::changeCurrImage() {
-    if (singleMode || currPage==totalPage-1 || (!singleMode && currPage==0)) {
+void ComicBook::changeCurrImage() {
+    if (simpleMode || currPage==totalPage-1 || (!simpleMode && currPage==0)) {
         currImage = QPixmap(tabPathToImage[currPage]);
     } else {
         currImage = Image::combine(QPixmap(tabPathToImage[currPage]), tabPathToImage[currPage+1] );
@@ -68,9 +68,9 @@ void Book::changeCurrImage() {
 }
 
 // Passage à la page suivante
-void Book::next() {
-    if ((currPage<totalPage-1 && singleMode) || currPage<totalPage-2 ) {
-        if (singleMode || currPage+1==totalPage-1 || (!singleMode && currPage==0)) {
+void ComicBook::next() {
+    if ((currPage<totalPage-1 && simpleMode) || currPage<totalPage-2 ) {
+        if (simpleMode || currPage+1==totalPage-1 || (!simpleMode && currPage==0)) {
             currPage = currPage + 1;
         } else {
             currPage = currPage + 2;
@@ -85,9 +85,9 @@ void Book::next() {
 }
 
 // Revenir à la page précédente
-void Book::previous() {
+void ComicBook::previous() {
     if (currPage>0) {
-        if (singleMode || currPage-1==0) {
+        if (simpleMode || currPage-1==0) {
             currPage = currPage - 1;
         } else {
             currPage = currPage - 2;
@@ -99,16 +99,16 @@ void Book::previous() {
     }
 }
 
-void Book::first() {
+void ComicBook::first() {
     currPage=0;
     changeCurrImage();
     emit pageChanged(true);
 }
 
-void Book::last() {
-    if (singleMode) {
+void ComicBook::last() {
+    if (simpleMode) {
         currPage = totalPage - 1;
-    } else if (!singleMode) {
+    } else if (!simpleMode) {
         currPage = totalPage - 1 - (totalPage % 2);
     } else {
         currPage = totalPage - 1 - ((totalPage - 1) % 2);
@@ -118,24 +118,24 @@ void Book::last() {
 }
 
 
-QString Book::getRatio() {
+QString ComicBook::getRatio() {
     return ratio;
 }
 
 
-QPixmap Book::getCurrImage() {
+QPixmap ComicBook::getCurrImage() {
     return currImage;
 }
 
-int Book::getCurrPage() {
+int ComicBook::getCurrPage() {
     return currPage;
 }
 
-int Book::getTotalPage() {
+int ComicBook::getTotalPage() {
     return totalPage;
 }
 
-QFileInfoList* Book::getFileInfoList(QList<int> l) {
+QFileInfoList* ComicBook::getFileInfoList(QList<int> l) {
     QFileInfoList* fileList = new QFileInfoList();
     foreach(int i, l) {
         fileList->append(QFileInfo(tabPathToImage[i-1]));
