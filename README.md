@@ -33,4 +33,5 @@ $ ./ComicBookReader
 
 Un diagramme UML (Unified Modeling Language) est un type de diagramme utilisé dans le domaine de l'ingénierie logicielle pour représenter visuellement la structure et le comportement d'un système logiciel. Ici, on représente un diagramme de classe, qui représente les classes et les relations entre elles dans un système logiciel, y compris les attributs et les méthodes.
 
+## Logiciel
 ![Texte alternatif](https://github.com/agathebeucher/IN204/blob/master/exemple.png "Démonstrateur")
