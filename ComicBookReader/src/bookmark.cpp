@@ -42,7 +42,7 @@ int Bookmark::get_pagemarked(){
 void Bookmark::initialize_bookmarkfile(QString bookmarkFilename, int val){
     std::ofstream bookmarkFile(bookmarkFilename.toStdString());
         if (bookmarkFile.is_open()) {
-            bookmarkFile << val << std::endl;
+            bookmarkFile << val+1 << std::endl;
             bookmarkFile.close();
         } 
         else {
@@ -53,7 +53,7 @@ void Bookmark::initialize_bookmarkfile(QString bookmarkFilename, int val){
 void Bookmark::change_bookmarkfile(QString bookmarkFileName,int val){
     std::ofstream bookmarkFile(bookmarkFileName.toStdString(), std::ios::app);
     if (bookmarkFile.is_open()) {
-        bookmarkFile << val << std::endl;
+        bookmarkFile << val+1 << std::endl;
         bookmarkFile.close();
     } else {
         std::cerr << "Impossible d'ouvrir le fichier de marque-page pour écriture." << std::endl;

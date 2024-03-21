@@ -60,7 +60,6 @@ SOURCES       = src/main.cpp \
 		src/assemblage.cpp \
 		src/bookmark.cpp moc_mainwindow.cpp \
 		moc_comicbook.cpp \
-		moc_archive.cpp \
 		moc_assemblage.cpp \
 		moc_bookmark.cpp
 OBJECTS       = main.o \
@@ -72,7 +71,6 @@ OBJECTS       = main.o \
 		bookmark.o \
 		moc_mainwindow.o \
 		moc_comicbook.o \
-		moc_archive.o \
 		moc_assemblage.o \
 		moc_bookmark.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -381,9 +379,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_comicbook.cpp moc_archive.cpp moc_assemblage.cpp moc_bookmark.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_comicbook.cpp moc_assemblage.cpp moc_bookmark.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_comicbook.cpp moc_archive.cpp moc_assemblage.cpp moc_bookmark.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_comicbook.cpp moc_assemblage.cpp moc_bookmark.cpp
 moc_mainwindow.cpp: header/mainwindow.h \
 		header/comicbook.h \
 		header/bookmark.h \
@@ -396,11 +394,6 @@ moc_comicbook.cpp: header/comicbook.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/Documents/IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/Documents/IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include header/comicbook.h -o moc_comicbook.cpp
-
-moc_archive.cpp: header/archive.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/beucher/Documents/IN204/ComicBookReader/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/beucher/Documents/IN204/ComicBookReader -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include header/archive.h -o moc_archive.cpp
 
 moc_assemblage.cpp: header/assemblage.h \
 		moc_predefs.h \
@@ -474,9 +467,6 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 moc_comicbook.o: moc_comicbook.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_comicbook.o moc_comicbook.cpp
-
-moc_archive.o: moc_archive.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_archive.o moc_archive.cpp
 
 moc_assemblage.o: moc_assemblage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_assemblage.o moc_assemblage.cpp
