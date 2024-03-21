@@ -468,4 +468,3 @@ bool MainWindow::fileExists(QString fileName) {
     QFileInfo fileInfo(fileName);
     return fileInfo.exists() && fileInfo.isFile();
 }
-

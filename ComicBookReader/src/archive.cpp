@@ -167,7 +167,6 @@ void DecompresserZIP(QString cheminZip, QString cheminCible) {
     archive_write_free(archiveEcriture);
 }
 
-
 void DecompresserRAR(QString cheminRAR, QString cheminCible) {
   // Construire la commande unrar pour extraire l'archive.rar vers le répertoire cible
   QString commande = "unrar x \"" + cheminRAR + "\" -d \"" + cheminCible + "\"";
