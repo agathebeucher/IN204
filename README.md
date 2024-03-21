@@ -5,7 +5,7 @@ Comic Book Reader réalisé en C++ dans le cadre du cours IN204 d'ENSTA Paris
 Ce projet d'IN204 consiste à réaliser un logiciel qui soit capable de fournir un **lecteur** permettant de prendre en charge les différents formats utilisés pour les bandes dessinées.
 Cet outil offre une **interface agréable et performante** permettant de parcourir les différentes pages d’un livre au format *.CBR* ou au format *.CBZ*.
 
-## 🔧 Outils
+## 🔧 Outils (sous Linux ou WSL)
 * Qt version 5 (Gestion de l'interface)
 * Libarchive (Gestion des archives)
 ```
